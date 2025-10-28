@@ -36,10 +36,10 @@ All plugins in this marketplace must meet these requirements:
 
 ### Required Elements
 
-- **Complete plugin manifest**: Valid `.claude-plugin/plugin.json` with all required fields
+- **Complete plugin manifest**: Valid `.claude-plugin/plugin.json` with at minimum the `name` field (recommended to include `description`, `version`, and `author` for quality)
 - **Clear documentation**: README.md with installation, usage, and examples
 - **Proper structure**: Follows official Claude Code plugin structure
-- **Semantic versioning**: Uses semantic versioning (e.g., 1.0.0)
+- **Semantic versioning**: Uses semantic versioning (e.g., 1.0.0) when version is included
 - **License**: Includes a clear license (MIT, Apache-2.0, or similar OSI-approved)
 
 ### Code Quality

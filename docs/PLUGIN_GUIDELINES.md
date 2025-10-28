@@ -41,7 +41,23 @@ plugin-name/
 
 ## Plugin Manifest (plugin.json)
 
-The `plugin.json` file must be located at `.claude-plugin/plugin.json` and include these required fields:
+The `plugin.json` file must be located at `.claude-plugin/plugin.json`.
+
+### Required Fields
+
+| Field  | Type   | Description                               |
+|--------|--------|-------------------------------------------|
+| `name` | string | Plugin identifier (kebab-case, no spaces) |
+
+### Recommended Metadata Fields
+
+| Field         | Type   | Description                                   |
+|---------------|--------|-----------------------------------------------|
+| `description` | string | Brief explanation of plugin purpose           |
+| `version`     | string | Semantic version (MAJOR.MINOR.PATCH)          |
+| `author`      | object | Author information with `name` field required |
+
+**Example with recommended fields:**
 
 ```json
 {
@@ -55,16 +71,7 @@ The `plugin.json` file must be located at `.claude-plugin/plugin.json` and inclu
 }
 ```
 
-### Required Fields
-
-| Field         | Type   | Description                                    |
-|---------------|--------|------------------------------------------------|
-| `name`        | string | Plugin identifier (kebab-case, no spaces)      |
-| `description` | string | Brief, clear description of the plugin        |
-| `version`     | string | Semantic version (MAJOR.MINOR.PATCH)           |
-| `author`      | object | Author information with `name` field required  |
-
-### Optional Fields
+### Optional Configuration Fields
 
 | Field        | Type           | Description                                      |
 |--------------|----------------|--------------------------------------------------|
@@ -72,10 +79,10 @@ The `plugin.json` file must be located at `.claude-plugin/plugin.json` and inclu
 | `repository` | string         | Source code repository URL                       |
 | `license`    | string         | SPDX license identifier (e.g., MIT, Apache-2.0)  |
 | `keywords`   | array          | Tags for plugin discovery                        |
-| `commands`   | string\|array  | Custom paths to command files or directories     |
-| `agents`     | string\|array  | Custom paths to agent files                      |
-| `hooks`      | string\|object | Custom hooks configuration                       |
-| `mcpServers` | string\|object | MCP server configurations                        |
+| `commands`   | string\|array  | Custom paths to command files or directories (must be relative and start with `./`)     |
+| `agents`     | string\|array  | Custom paths to agent files (must be relative and start with `./`)                      |
+| `hooks`      | string\|object | Custom hooks configuration (path must be relative and start with `./` if string)                       |
+| `mcpServers` | string\|object | MCP server configurations (path must be relative and start with `./` if string)                        |
 
 ## Naming Conventions
 
@@ -123,12 +130,17 @@ Use $ARGUMENTS or $1, $2, etc. for argument placeholders.
 
 ### Command Frontmatter
 
-| Field            | Required | Description                                     |
-|------------------|----------|-------------------------------------------------|
-| `description`    | Yes      | Brief description shown in /help                |
-| `allowed-tools`  | No       | Tools this command can use                      |
-| `argument-hint`  | No       | Hint shown during auto-completion               |
-| `model`          | No       | Specific model to use for this command          |
+| Field                      | Required      | Description                                     |
+|----------------------------|---------------|-------------------------------------------------|
+| `description`              | Recommended* | Brief description shown in /help                |
+| `allowed-tools`            | No            | Tools this command can use                      |
+| `argument-hint`            | No            | Hint shown during auto-completion               |
+| `model`                    | No            | Specific model to use for this command          |
+| `disable-model-invocation` | No            | Prevent SlashCommand tool from calling this command |
+
+**\*Note**: While Claude Code has a default for `description` (uses the first line from the prompt), this marketplace requires it for two reasons:
+1. **Quality**: Ensures clear, discoverable commands in `/help`
+2. **SlashCommand tool compatibility**: The SlashCommand tool requires `description` to be populated for model invocation
 
 ### Best Practices
 
@@ -147,6 +159,7 @@ Agents are Markdown files in the `agents/` directory that define specialized sub
 ```markdown
 ---
 description: Brief description of agent purpose
+capabilities: ["capability1", "capability2", "capability3"]
 model: claude-sonnet-4
 ---
 
@@ -232,9 +245,15 @@ Hooks are defined in `hooks/hooks.json` and trigger on specific events.
 
 ### Supported Hook Events
 
-- `PreToolUse`: Before a tool is used
-- `PostToolUse`: After a tool is used
-- `OnError`: When an error occurs
+- `PreToolUse`: Before Claude uses any tool
+- `PostToolUse`: After Claude uses any tool
+- `UserPromptSubmit`: When user submits a prompt
+- `Notification`: When Claude Code sends notifications
+- `Stop`: When Claude attempts to stop
+- `SubagentStop`: When a subagent attempts to stop
+- `SessionStart`: At the beginning of sessions
+- `SessionEnd`: At the end of sessions
+- `PreCompact`: Before conversation history is compacted
 
 ### Best Practices
 
@@ -390,6 +409,7 @@ See [Testing Guide](TESTING.md) for detailed testing procedures.
 - Keep commands focused and simple
 - Handle errors gracefully
 - Use ${CLAUDE_PLUGIN_ROOT} for plugin-relative paths
+- Ensure all custom component paths are relative and start with `./`
 
 ## Getting Help
 

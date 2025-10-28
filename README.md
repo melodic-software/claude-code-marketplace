@@ -7,7 +7,7 @@ A curated public marketplace for [Claude Code](https://docs.claude.com/en/docs/c
 ### Add this marketplace
 
 ```shell
-/plugin marketplace add melodic/claude-code-marketplace
+/plugin marketplace add melodic-software/claude-code-marketplace
 ```
 
 ### Browse available plugins

@@ -248,7 +248,7 @@ Users reference plugins with the marketplace name:
 
 ### Plugin Installation Flow
 
-1. User adds marketplace: `/plugin marketplace add melodic/claude-code-marketplace`
+1. User adds marketplace: `/plugin marketplace add melodic-software/claude-code-marketplace`
 2. Claude Code fetches `.claude-plugin/marketplace.json`
 3. User browses or installs plugin: `/plugin install my-plugin@claude-code-marketplace`
 4. Claude Code resolves the source path: `./plugins/general/my-plugin`

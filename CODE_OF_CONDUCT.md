@@ -75,7 +75,7 @@ Maintainers have the right and responsibility to take action in cases of unaccep
 
 If you experience or witness unacceptable behavior, please report it:
 
-**Email**: [conduct@melodic.software] (replace with actual conduct email)
+**Email**: [conduct@melodicsoftware.com] (replace with actual conduct email)
 
 **GitHub**: Use the "Report content" feature on specific comments or issues
 
@@ -137,7 +137,7 @@ Maintainers will follow these Community Impact Guidelines in determining consequ
 
 If you believe an enforcement decision was made in error, you may appeal by:
 
-1. Emailing [conduct@melodic.software] with "Appeal" in the subject line
+1. Emailing [conduct@melodicsoftware.com] with "Appeal" in the subject line
 2. Providing:
    - The enforcement action you're appealing
    - Why you believe it was in error
@@ -156,7 +156,7 @@ Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcem
 If you have questions about this Code of Conduct:
 
 - Open a [discussion](../../discussions)
-- Email [conduct@melodic.software]
+- Email [conduct@melodicsoftware.com]
 - Check the [FAQ](../../wiki/Code-of-Conduct-FAQ) (if available)
 
 ## Updates

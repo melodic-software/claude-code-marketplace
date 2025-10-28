@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://melodic.software/schemas/claude-code-marketplace.json",
+  "$id": "https://melodic-software/schemas/claude-code-marketplace.json",
   "title": "Claude Code Marketplace Schema",
   "description": "Schema for validating Claude Code marketplace.json files",
   "type": "object",
@@ -128,6 +128,11 @@
                 "type": "string",
                 "description": "Author email address",
                 "format": "email"
+              },
+              "url": {
+                "type": "string",
+                "description": "Author URL (e.g., GitHub profile, personal website)",
+                "format": "uri"
               }
             },
             "additionalProperties": false

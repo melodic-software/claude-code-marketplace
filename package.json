@@ -9,13 +9,13 @@
     "cli",
     "automation"
   ],
-  "homepage": "https://github.com/melodic/claude-code-marketplace#readme",
+  "homepage": "https://github.com/melodic-software/claude-code-marketplace#readme",
   "bugs": {
-    "url": "https://github.com/melodic/claude-code-marketplace/issues"
+    "url": "https://github.com/melodic-software/claude-code-marketplace/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/melodic/claude-code-marketplace.git"
+    "url": "git+https://github.com/melodic-software/claude-code-marketplace.git"
   },
   "license": "MIT",
   "author": {

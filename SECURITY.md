@@ -10,7 +10,7 @@ The security of the Claude Code Marketplace and its plugins is important to us. 
 
 Instead, please report security vulnerabilities by emailing:
 
-**[security@melodic.software]** (replace with actual security email)
+**[security@melodicsoftware.com]** (replace with actual security email)
 
 Or use GitHub's private vulnerability reporting feature:
 
@@ -133,7 +133,7 @@ By submitting a security vulnerability report, you agree that:
 
 For security-related questions that aren't vulnerability reports:
 
-- Email: [security@melodic.software]
+- Email: [security@melodicsoftware.com]
 - GitHub Discussions: [Security discussions](../../discussions/categories/security)
 
 ### Resources

@@ -26,7 +26,7 @@ If testing a new plugin in this marketplace:
 
 ```bash
 # Clone the marketplace repository
-git clone https://github.com/melodic/claude-code-marketplace.git
+git clone https://github.com/melodic-software/claude-code-marketplace.git
 cd claude-code-marketplace
 
 # Or if already cloned, pull latest changes
