@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://melodic.software/schemas/claude-code-plugin-manifest.json",
+  "title": "Claude Code Plugin Manifest Schema",
+  "description": "Schema for validating Claude Code plugin.json files",
+  "type": "object",
+  "required": ["name", "description", "version", "author"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Plugin identifier in kebab-case",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief, clear description of the plugin",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "version": {
+      "type": "string",
+      "description": "Plugin version using semantic versioning (MAJOR.MINOR.PATCH)",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+    },
+    "author": {
+      "type": "object",
+      "description": "Plugin author information",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author name",
+          "minLength": 1
+        },
+        "email": {
+          "type": "string",
+          "description": "Author email address",
+          "format": "email"
+        }
+      },
+      "additionalProperties": false
+    },
+    "homepage": {
+      "type": "string",
+      "description": "Plugin homepage or documentation URL",
+      "format": "uri"
+    },
+    "repository": {
+      "type": "string",
+      "description": "Source code repository URL",
+      "format": "uri"
+    },
+    "license": {
+      "type": "string",
+      "description": "SPDX license identifier (e.g., MIT, Apache-2.0)"
+    },
+    "keywords": {
+      "type": "array",
+      "description": "Tags for plugin discovery and categorization",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "commands": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Path to commands directory or file"
+        },
+        {
+          "type": "array",
+          "description": "Array of command file or directory paths",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "agents": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Path to agents directory or file"
+        },
+        {
+          "type": "array",
+          "description": "Array of agent file paths",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "hooks": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Path to hooks.json file"
+        },
+        {
+          "type": "object",
+          "description": "Hooks configuration object",
+          "properties": {
+            "PreToolUse": {
+              "type": "array",
+              "description": "Hooks that run before tool use"
+            },
+            "PostToolUse": {
+              "type": "array",
+              "description": "Hooks that run after tool use"
+            },
+            "OnError": {
+              "type": "array",
+              "description": "Hooks that run on errors"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "mcpServers": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Path to .mcp.json file"
+        },
+        {
+          "type": "object",
+          "description": "MCP server configurations",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "command": {
+                "type": "string",
+                "description": "Command to run the MCP server"
+              },
+              "args": {
+                "type": "array",
+                "description": "Arguments for the MCP server command",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "env": {
+                "type": "object",
+                "description": "Environment variables for the MCP server"
+              }
+            },
+            "required": ["command"]
+          }
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

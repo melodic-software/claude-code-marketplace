@@ -1,0 +1,11 @@
+{
+  "name": "claude-code-marketplace",
+  "owner": {
+    "name": "Melodic Software"
+  },
+  "metadata": {
+    "description": "A curated public marketplace for Claude Code plugins",
+    "version": "1.0.0"
+  },
+  "plugins": []
+}

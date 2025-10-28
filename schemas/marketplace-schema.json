@@ -1,0 +1,232 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://melodic.software/schemas/claude-code-marketplace.json",
+  "title": "Claude Code Marketplace Schema",
+  "description": "Schema for validating Claude Code marketplace.json files",
+  "type": "object",
+  "required": ["name", "owner", "plugins"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Marketplace identifier in kebab-case",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "object",
+      "description": "Marketplace owner information",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Owner name",
+          "minLength": 1
+        },
+        "email": {
+          "type": "string",
+          "description": "Owner email address",
+          "format": "email"
+        }
+      },
+      "additionalProperties": false
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional marketplace metadata",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Brief marketplace description"
+        },
+        "version": {
+          "type": "string",
+          "description": "Marketplace version (semantic versioning)",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+        },
+        "pluginRoot": {
+          "type": "string",
+          "description": "Base path for relative plugin sources"
+        }
+      },
+      "additionalProperties": false
+    },
+    "plugins": {
+      "type": "array",
+      "description": "Array of available plugins",
+      "items": {
+        "type": "object",
+        "required": ["name", "source"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Plugin identifier in kebab-case",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "minLength": 1
+          },
+          "source": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Relative path or URL to plugin source"
+              },
+              {
+                "type": "object",
+                "description": "Structured source configuration",
+                "oneOf": [
+                  {
+                    "required": ["source", "repo"],
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "const": "github"
+                      },
+                      "repo": {
+                        "type": "string",
+                        "description": "GitHub repository (owner/repo)",
+                        "pattern": "^[a-zA-Z0-9-]+/[a-zA-Z0-9._-]+$"
+                      }
+                    }
+                  },
+                  {
+                    "required": ["source", "url"],
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "const": "url"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "Git repository URL",
+                        "format": "uri"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief plugin description"
+          },
+          "version": {
+            "type": "string",
+            "description": "Plugin version (semantic versioning)",
+            "pattern": "^\\d+\\.\\d+\\.\\d+(-[a-zA-Z0-9.-]+)?(\\+[a-zA-Z0-9.-]+)?$"
+          },
+          "author": {
+            "type": "object",
+            "description": "Plugin author information",
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Author name",
+                "minLength": 1
+              },
+              "email": {
+                "type": "string",
+                "description": "Author email address",
+                "format": "email"
+              }
+            },
+            "additionalProperties": false
+          },
+          "homepage": {
+            "type": "string",
+            "description": "Plugin homepage or documentation URL",
+            "format": "uri"
+          },
+          "repository": {
+            "type": "string",
+            "description": "Source code repository URL",
+            "format": "uri"
+          },
+          "license": {
+            "type": "string",
+            "description": "SPDX license identifier"
+          },
+          "keywords": {
+            "type": "array",
+            "description": "Tags for plugin discovery",
+            "items": {
+              "type": "string"
+            }
+          },
+          "category": {
+            "type": "string",
+            "description": "Plugin category"
+          },
+          "tags": {
+            "type": "array",
+            "description": "Additional searchability tags",
+            "items": {
+              "type": "string"
+            }
+          },
+          "strict": {
+            "type": "boolean",
+            "description": "Whether to require plugin.json in plugin folder",
+            "default": true
+          },
+          "commands": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Path to commands directory or file"
+              },
+              {
+                "type": "array",
+                "description": "Array of command paths",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "agents": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Path to agents directory or file"
+              },
+              {
+                "type": "array",
+                "description": "Array of agent paths",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "hooks": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Path to hooks.json file"
+              },
+              {
+                "type": "object",
+                "description": "Hooks configuration"
+              }
+            ]
+          },
+          "mcpServers": {
+            "oneOf": [
+              {
+                "type": "string",
+                "description": "Path to .mcp.json file"
+              },
+              {
+                "type": "object",
+                "description": "MCP server configurations"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

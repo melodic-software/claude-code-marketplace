@@ -1,0 +1,193 @@
+name: Test Plugins
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Plugin Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run test script
+        run: npm run test
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            **/*.log
+          retention-days: 7
+
+  check-markdown:
+    name: Check Markdown Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check markdown files are readable
+        run: |
+          EXIT_CODE=0
+
+          echo "Checking root markdown files..."
+          for file in *.md; do
+            if [ -f "$file" ]; then
+              if [ ! -r "$file" ]; then
+                echo "❌ Cannot read: $file"
+                EXIT_CODE=1
+              else
+                echo "✅ Readable: $file"
+              fi
+            fi
+          done
+
+          echo ""
+          echo "Checking documentation files..."
+          for file in docs/*.md; do
+            if [ -f "$file" ]; then
+              if [ ! -r "$file" ]; then
+                echo "❌ Cannot read: $file"
+                EXIT_CODE=1
+              else
+                echo "✅ Readable: $file"
+              fi
+            fi
+          done
+
+          echo ""
+          echo "Checking plugin files..."
+          for file in $(find plugins -name "*.md" 2>/dev/null); do
+            if [ ! -r "$file" ]; then
+              echo "❌ Cannot read: $file"
+              EXIT_CODE=1
+            else
+              echo "✅ Readable: $file"
+            fi
+          done
+
+          exit $EXIT_CODE
+
+  check-naming:
+    name: Check Naming Conventions
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify kebab-case naming
+        run: |
+          EXIT_CODE=0
+
+          echo "Checking plugin directory names..."
+          for category in plugins/*; do
+            if [ -d "$category" ]; then
+              category_name=$(basename "$category")
+
+              # Handle specialized category (has sub-categories)
+              if [ "$category_name" = "specialized" ]; then
+                for domain in "$category"/*; do
+                  if [ -d "$domain" ]; then
+                    for plugin in "$domain"/*; do
+                      if [ -d "$plugin" ]; then
+                        plugin_name=$(basename "$plugin")
+
+                        if [ "$plugin_name" != ".gitkeep" ]; then
+                          # Check if name is kebab-case
+                          if ! echo "$plugin_name" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$'; then
+                            echo "❌ Plugin name not kebab-case: $plugin_name"
+                            EXIT_CODE=1
+                          else
+                            echo "✅ Valid plugin name: $plugin_name"
+                          fi
+                        fi
+                      fi
+                    done
+                  fi
+                done
+              else
+                # Regular categories
+                for plugin in "$category"/*; do
+                  if [ -d "$plugin" ]; then
+                    plugin_name=$(basename "$plugin")
+
+                    if [ "$plugin_name" != ".gitkeep" ]; then
+                      # Check if name is kebab-case
+                      if ! echo "$plugin_name" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$'; then
+                        echo "❌ Plugin name not kebab-case: $plugin_name"
+                        EXIT_CODE=1
+                      else
+                        echo "✅ Valid plugin name: $plugin_name"
+                      fi
+                    fi
+                  fi
+                done
+              fi
+            fi
+          done
+
+          exit $EXIT_CODE
+
+  count-plugins:
+    name: Report Plugin Count
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Count plugins by category
+        run: |
+          echo "📊 Plugin Statistics"
+          echo "===================="
+          echo ""
+
+          TOTAL=0
+
+          for category in plugins/*; do
+            if [ -d "$category" ]; then
+              category_name=$(basename "$category")
+              COUNT=0
+
+              if [ "$category_name" = "specialized" ]; then
+                for domain in "$category"/*; do
+                  if [ -d "$domain" ]; then
+                    domain_name=$(basename "$domain")
+                    DOMAIN_COUNT=$(find "$domain" -mindepth 1 -maxdepth 1 -type d ! -name ".gitkeep" | wc -l)
+                    COUNT=$((COUNT + DOMAIN_COUNT))
+
+                    if [ $DOMAIN_COUNT -gt 0 ]; then
+                      echo "  $domain_name: $DOMAIN_COUNT plugin(s)"
+                    fi
+                  fi
+                done
+              else
+                COUNT=$(find "$category" -mindepth 1 -maxdepth 1 -type d ! -name ".gitkeep" | wc -l)
+              fi
+
+              echo "$category_name: $COUNT plugin(s)"
+              TOTAL=$((TOTAL + COUNT))
+            fi
+          done
+
+          echo ""
+          echo "Total: $TOTAL plugin(s)"

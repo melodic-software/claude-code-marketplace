@@ -1,0 +1,38 @@
+{
+  "name": "claude-code-marketplace",
+  "version": "1.0.0",
+  "description": "A curated public marketplace for Claude Code plugins",
+  "keywords": [
+    "claude-code",
+    "plugins",
+    "marketplace",
+    "cli",
+    "automation"
+  ],
+  "homepage": "https://github.com/melodic/claude-code-marketplace#readme",
+  "bugs": {
+    "url": "https://github.com/melodic/claude-code-marketplace/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melodic/claude-code-marketplace.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Melodic Software"
+  },
+  "scripts": {
+    "validate": "npm run validate:marketplace && npm run validate:plugins",
+    "validate:marketplace": "node scripts/validate-marketplace.js",
+    "validate:plugins": "node scripts/validate-plugin.js",
+    "test": "bash scripts/test-plugins.sh",
+    "test:ci": "npm run validate && npm run test"
+  },
+  "devDependencies": {
+    "ajv": "^8.12.0",
+    "ajv-formats": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
