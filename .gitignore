@@ -5,7 +5,15 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
+
+# Lock files
+# We DO commit package-lock.json for this project because:
+# 1. This is an application/infrastructure project (not a library)
+# 2. GitHub Actions requires it for npm caching (cache: 'npm')
+# 3. npm ci command requires it to exist
+# 4. Ensures reproducible builds across all environments
+# Note: Visual Studio's default .gitignore ignores it for library projects
+# package-lock.json
 yarn.lock
 pnpm-lock.yaml
 .pnpm-debug.log*
