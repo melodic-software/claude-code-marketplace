@@ -3,8 +3,36 @@ name: Validate Structure
 on:
   push:
     branches: [ main ]
+    paths:
+      - '.claude-plugin/**'
+      - 'schemas/**'
+      - 'scripts/validate-*.js'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'plugins/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+      - 'docs/PLUGIN_GUIDELINES.md'
+      - 'docs/STRUCTURE.md'
+      - 'docs/TESTING.md'
+      - '.github/workflows/validate-structure.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - '.claude-plugin/**'
+      - 'schemas/**'
+      - 'scripts/validate-*.js'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'plugins/**'
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'LICENSE'
+      - 'docs/PLUGIN_GUIDELINES.md'
+      - 'docs/STRUCTURE.md'
+      - 'docs/TESTING.md'
+      - '.github/workflows/validate-structure.yml'
 
 jobs:
   validate:

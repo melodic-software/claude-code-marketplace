@@ -3,8 +3,24 @@ name: Test Plugins
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'plugins/**'
+      - 'scripts/test-plugins.sh'
+      - 'package.json'
+      - 'package-lock.json'
+      - '*.md'
+      - 'docs/*.md'
+      - '.github/workflows/test-plugins.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'plugins/**'
+      - 'scripts/test-plugins.sh'
+      - 'package.json'
+      - 'package-lock.json'
+      - '*.md'
+      - 'docs/*.md'
+      - '.github/workflows/test-plugins.yml'
 
 jobs:
   test:
