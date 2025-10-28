@@ -155,16 +155,15 @@ Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcem
 
 If you have questions about this Code of Conduct:
 
-- Open a [discussion](../../discussions)
+- [Open an issue](../../issues) with the "question" label
 - Email [conduct@melodicsoftware.com]
-- Check the [FAQ](../../wiki/Code-of-Conduct-FAQ) (if available)
 
 ## Updates
 
 This Code of Conduct may be updated periodically. Significant changes will be announced in:
 
 - Repository README
-- GitHub Discussions
+- GitHub Issues
 - Release notes
 
 **Last Updated**: 2025-10-28

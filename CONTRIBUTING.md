@@ -110,7 +110,7 @@ Domain-specific plugins focused on particular technologies, frameworks, or speci
 
 ## Questions?
 
-- **General questions**: [Open a discussion](../../discussions)
+- **General questions**: [Open an issue](../../issues) with the "question" label
 - **Bug reports**: [File an issue](../../issues/new)
 - **Plugin proposals**: [Submit a plugin request](../../issues/new?assignees=&labels=plugin-request&template=plugin-request.md&title=%5BPLUGIN%5D+)
 

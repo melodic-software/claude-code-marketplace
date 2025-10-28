@@ -134,7 +134,7 @@ By submitting a security vulnerability report, you agree that:
 For security-related questions that aren't vulnerability reports:
 
 - Email: [security@melodicsoftware.com]
-- GitHub Discussions: [Security discussions](../../discussions/categories/security)
+- GitHub Issues: [Report an issue](../../issues) with the "security" label
 
 ### Resources
 

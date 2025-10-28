@@ -511,7 +511,7 @@ If you encounter testing issues:
 
 - Review [Plugin Guidelines](PLUGIN_GUIDELINES.md)
 - Check [Marketplace Structure](STRUCTURE.md)
-- Ask in [GitHub Discussions](../../discussions)
+- Ask questions in [GitHub Issues](../../issues) with the "question" label
 - Report bugs in [GitHub Issues](../../issues)
 
 ## Automated CI Testing

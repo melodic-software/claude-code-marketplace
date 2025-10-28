@@ -1,6 +1,6 @@
 # Claude Code Marketplace
 
-A curated public marketplace for [Claude Code](https://docs.claude.com/en/docs/claude-code) plugins. This marketplace provides high-quality, tested plugins that extend Claude Code's capabilities with custom commands, agents, skills, hooks, and MCP integrations.
+A curated public marketplace for [Claude Code](https://docs.claude.com/en/docs/claude-code/overview) plugins. This marketplace provides high-quality, tested plugins that extend Claude Code's capabilities with custom commands, agents, skills, hooks, and MCP integrations.
 
 ## Quick Start
 

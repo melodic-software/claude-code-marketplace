@@ -416,7 +416,7 @@ See [Testing Guide](TESTING.md) for detailed testing procedures.
 - Review [official Claude Code plugin docs](https://docs.claude.com/en/docs/claude-code/plugins)
 - Check [marketplace structure documentation](STRUCTURE.md)
 - See [testing guide](TESTING.md) for testing workflows
-- Ask questions in [GitHub Discussions](../../discussions)
+- Ask questions in [GitHub Issues](../../issues) with the "question" label
 
 ## Updates to Guidelines
 
